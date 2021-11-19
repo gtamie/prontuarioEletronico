@@ -7,14 +7,13 @@ def apresentarMenu():
                "\nInforme a opção desejada:").upper()
     return menu
 
-
-def inserirPaciente(dicionario,listaprontuario):
+def gravarInDicionario(dicionario,listaprontuario):
     # inserir dados do "fichapacientes.csv" para o dicionário (no caso de já existir pacientes cadastrados no arquivo)
     with open("fichapacientes.csv", "r") as ficha:
         conteudo = ficha.readlines()
         if len(conteudo) > 1:
             with open("fichapacientes.csv", "r") as ficha:
-                dados = ficha.readlines()[1:]
+                dados=ficha.read().splitlines()[1:]
                 for linha in dados:
                     lista=linha.split(";")
                     number=int(lista[0])
@@ -24,6 +23,7 @@ def inserirPaciente(dicionario,listaprontuario):
                     convenio=lista[3]
                     dicionario[number] = [nome, dtnasc, convenio]
 
+def inserirPaciente(dicionario, listaprontuario):
     # gerar o número de prontuario
     if len(dicionario) == 0:
         number = 1
@@ -35,13 +35,15 @@ def inserirPaciente(dicionario,listaprontuario):
     dtnasc=input("Data de nascimento:")
     convenio=input("Convênio:").upper()
     dicionario[number]=[nome, dtnasc, convenio]
+    print(dicionario)
 
+def gravarInArquivo(dicionario):
     # guardar dados no arquivo csv
     with open("fichapacientes.csv", "w") as ficha:
-        ficha.write("Nº prontuário" + ";" + "Nome completo" + ";" + "Data nascimento" + ";" + "Convênio"+"\n")
+        ficha.write("Nº prontuário" + ";" + "Nome completo" + ";" + "Data nascimento" + ";" + "Convênio")
     with open("fichapacientes.csv", "a") as ficha:
         for chave,valor in dicionario.items():
-            ficha.write(str(chave)+ ";" + valor[0] + ";" + valor[1] + ";" + valor[2]+"\n")
+            ficha.write("\n"+str(chave)+ ";" + valor[0] + ";" + valor[1] + ";" + valor[2])
 
 
 def pesquisarPaciente(dicionario,chave):
@@ -59,7 +61,7 @@ def excluirPaciente(dicionario,chave):
 def listarPacientes(dicionario):
 
     for chave,valor in dicionario.items():
-        print("Nome: ",valor[0])
+        print("\nNome: ",valor[0])
         print("Prontuário: ", chave)
         print("Data de nascimento: ",valor[1])
         print("Convênio: ", valor[2])

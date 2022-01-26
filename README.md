@@ -17,8 +17,8 @@ Em construção 🛠️
 ![PyCharm](https://img.shields.io/badge/-PyCharm-green)
 
 
-### 📄 Licença
+### Licença
 
-Este projeto está sob a licença MIT.
+Este projeto está sob a licença MIT📄
 
 
